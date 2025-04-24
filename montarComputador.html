@@ -8,17 +8,19 @@
 
     <style>
         body {
+            background: #161313;
+            font-family: Arial;
             text-align: center;
-            max-width: 800px;
+            max-width: 2000px;
             margin: 0 auto;
 
         }
 
         .categoria {
-            background: #f8f8f8;
+            background: #35d6d6;
             padding: 15px;
-            margin: 10px;
-            border-radius: 10px;
+            margin: 30px;
+            border-radius: 15px;
         }
 
         .opcoes {
@@ -29,8 +31,8 @@
         }
 
         .opcao {
-            background: white;
-            border: 2px solid #ddd;
+            background: rgb(252, 11, 11);
+            border: 2px solid #0e0c0c;
             padding: 10px;
             border-radius: 8px;
             cursor: pointer;
@@ -39,11 +41,11 @@
 
         .selecionado {
             border-color: #2196f3;
-            background: #f8f8f8;
+            background: #e3f2fd;
         }
 
         #montagem {
-            background: #e0e0e0;
+            background: #bafa54;
             margin: 20px;
             padding: 20px;
             border-radius: 10px;
@@ -53,35 +55,239 @@
 </head>
 
 <body>
-    <h1>Monte seu Computador</h1>
+    <h1 style="color: rgb(248, 248, 253);">🖥 Monte seu Computador</h1>
     <div id="montagem">
-        <h3>Sua Montagem:</h3>
-        <p>Placa:<span id="placaEscolhida">Nenhuma</span></p>
-        </div>
-        <!-- Primeira Categoria : Placa Mãe -->
-        <div class="categoria">
-            <h2>Placa Mãe</h2>
-            <div class="opcoes">
-            <div class="opcao" onclick="selecionarPlaca(this, 'Asus B550')"> Asus B550</div>
+        <h3> 📦 Sua Montagem:</h3>
+        <p> 🔌 Placa:<span id="placaEscolhida">Adicionar</span></p>
+        <p> 💻 Processador: <span id="processadorEscolhido">Adicionar</span></p>
+        <p> 💾 Armazenamento: <span id="armazenamentoEscolhido">Adicionar</span></p>
+        <p> ⚡ Fonte de Alimentação: <span id="fontedealimentacaoEscolhida">Adicionar</span></p>
+        <p> 🧠 Memória RAM: <span id="memoriaramEscolhida">Adicionar</span></p>
+        <p> 🗄️ Gabinete: <span id="gabineteEscolhido">Adicionar</span></p>
+        <p> 🌡️ Pasta Térmica: <span id="pastatermicaEscolhida">Adicionar</span></p>
+        <p> 📺 Monitor: <span id="monitorEscolhido">Adicionar</span></p>
+        <p> 🖱️ Mouse: <span id="mouseEscolhido">Adicionar</span></p>
+        <p> ⌨️ Teclado: <span id="tecladoEscolhido">Adicionar</span></p>
+    </div>
 
-            <div class="opcao" onclick="selecionarPlaca(this, 'Gigabyte Z690')"> Gigabyte Z690
-
+    <!-- Primeira Categoria : Placa Mãe -->
+    <div class="categoria">
+        <h2> 🔌 Placa-Mãe</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarPlaca(this, 'ATX')"> 🔌 <b>ATX</b>
+            </div>
+            <div class="opcao" onclick="selecionarPlaca(this, 'micro-ATX')"> 🔌 <b>micro-ATX</b>
+            </div>
+            <div class="opcao" onclick="selecionarPlaca(this, 'mini-ATX')"> 🔌 <b>mini-ATX</b>
             </div>
         </div>
-        <script>
-            // Função para selecionar Placa-Mãe
-            function selecionarPlaca(elemento, nome) {
-                //1. Remove seleção de todas placas
-                document.querySelectorAll('.categoria:nth-child(1) .opcao')
-                    .forEach(op => {
-                        op.classList.remove('selecionado')
-                    })
+    </div>
 
-                //2. Atualiza visual e texto
-                elemento.classList.add('selecionado')/*Coloca borda azul*/
-                document.getElementById('placaEscolhida').textContent = nome
-            }
-        </script>
+    <!-- Segunda categoria: Processadores -->
+    <div class="categoria">
+        <h2>💻 Processador</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarProcessador(this, 'Intel')">
+                💻 <b>Intel</b>
+            </div>
+            <div class="opcao" onclick="selecionarProcessador(this, 'AMD')">
+                💻 <b>AMD</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terceira categoria: Armazenamento -->
+    <div class="categoria">
+        <h2>💾 Armazenamento</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarArmazenamento(this, 'HDD')">
+                💾 <b>HDD</b>
+            </div>
+            <div class="opcao" onclick="selecionarArmazenamento(this, 'SSD')">
+                💾 <b>SSD</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quarta Categoria : Fonte de Alimentação -->
+    <div class="categoria">
+        <h2> ⚡ Fonte de Alimentação</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarFontedeAlimentacao(this, 'Modular')"> ⚡ <b>Modular</b>
+            </div>
+            <div class="opcao" onclick="selecionarFontedeAlimentacao(this, 'Semi-Modular')"> ⚡ <b>Semi-Modular</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quinta Categoria : Memória RAM -->
+    <div class="categoria">
+        <h2> 🧠 Memória RAM</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarMemoriaRAM(this, 'DDR3')"> 🧠 <b>DDR3</b>
+            </div>
+            <div class="opcao" onclick="selecionarMemoriaRAM(this, 'DDR4')"> 🧠 <b>DDR4</b>
+            </div>
+            <div class="opcao" onclick="selecionarMemoriaRAM(this, 'DDR5')"> 🧠 <b>DDR5</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sexta Categoria : Gabinete -->
+    <div class="categoria">
+        <h2> 🗄️ Gabinete</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarGabinete(this, 'mini-Tower')"> 🗄️ <b>mini-Tower</b>
+            </div>
+            <div class="opcao" onclick="selecionarGabinete(this, 'id-Tower')"> 🗄️ <b>Mid-Tower</b>
+            </div>
+            <div class="opcao" onclick="selecionarGabinete(this, 'Full-Tower')"> 🗄️ <b>Full-Tower</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sétima Categoria : Pasta Térmica -->
+    <div class="categoria">
+        <h2> 🌡️ Pasta Térmica</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarPastaTermica(this, 'Prata')"> 🌡️ <b>Prata</b>
+            </div>
+            <div class="opcao" onclick="selecionarPastaTermica(this, 'Metal Liquido')"> 🌡️ <b>Metal Líquido</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Oitava Categoria : Monitor -->
+    <div class="categoria">
+        <h2> 📺 Monitor</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarMonitor(this, '1080p')"> 📺 <b>1080p</b>
+            </div>
+            <div class="opcao" onclick="selecionarMonitor(this, '4K')"> 📺 <b>4K</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nona Categoria : Mouse -->
+    <div class="categoria">
+        <h2> 🖱️ Mouse</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarMouse(this, 'Com Fio')"> 🖱️ <b>Com Fio</b>
+            </div>
+            <div class="opcao" onclick="selecionarMouse(this, 'Sem Fio')"> 🖱️ <b>Sem Fio</b>
+            </div>
+            <div class="opcao" onclick="selecionarMouse(this, 'Ergonomico')"> 🖱️ <b>Ergonômico</b>
+            </div>
+            <div class="opcao" onclick="selecionarMouse(this, 'Gamer')"> 🖱️ <b>Gamer</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Décima Categoria : Teclado -->
+    <div class="categoria">
+        <h2> ⌨️ Teclado</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarTeclado(this, 'Membrana')"> ⌨️ <b>Membrana</b>
+            </div>
+            <div class="opcao" onclick="selecionarTeclado(this, 'Mecanico')"> ⌨️ <b>Mecânico</b>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para selecionar Placa-Mãe
+
+        function selecionarPlaca(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(1) .opcao').forEach(op => {
+                op.classList.remove('selecionado')
+            });
+            elemento.classList.add('selecionado')
+            document.getElementById('placaEscolhida').textContent = nome
+        }
+
+        // Função para selecionar Processador
+
+        function selecionarProcessador(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(2) .opcao').forEach(op => {
+                op.classList.remove('selecionado');
+            });
+            elemento.classList.add('selecionado');
+            document.getElementById('processadorEscolhido').textContent = nome;
+        }
+
+        // Função para selecionar Armazenamento
+
+        function selecionarArmazenamento(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(3) .opcao').forEach(op => {
+                op.classList.remove('selecionado');
+            });
+            elemento.classList.add('selecionado');
+            document.getElementById('armazenamentoEscolhido').textContent = nome;
+        }
+
+        // Função para selecionar Fonte de Alimentação
+        function selecionarFontedeAlimentacao(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(4) .opcao').forEach(op => {
+                op.classList.remove('selecionado')
+            });
+            elemento.classList.add('selecionado')
+            document.getElementById('fontedealimentacaoEscolhida').textContent = nome
+        }
+
+        // Função para selecionar Memória RAM
+        function selecionarMemoriaRAM(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(5) .opcao').forEach(op => {
+                op.classList.remove('selecionado')
+            });
+            elemento.classList.add('selecionado')
+            document.getElementById('memoriaramEscolhida').textContent = nome
+        }
+
+        // Função para selecionar Gabinete
+        function selecionarGabinete(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(6) .opcao').forEach(op => {
+                op.classList.remove('selecionado')
+            });
+            elemento.classList.add('selecionado')
+            document.getElementById('gabineteEscolhido').textContent = nome
+        }
+
+        // Função para selecionar Pasta térmica
+        function selecionarPastaTermica(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(7) .opcao').forEach(op => {
+                op.classList.remove('selecionado')
+            });
+            elemento.classList.add('selecionado')
+            document.getElementById('pastatermicaEscolhida').textContent = nome
+        }
+
+        // Função para selecionar Monitor
+        function selecionarMonitor(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(8) .opcao').forEach(op => {
+                op.classList.remove('selecionado')
+            });
+            elemento.classList.add('selecionado')
+            document.getElementById('monitorEscolhido').textContent = nome
+        }
+
+        // Função para selecionar Mouse
+        function selecionarMouse(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(9) .opcao').forEach(op => {
+                op.classList.remove('selecionado')
+            });
+            elemento.classList.add('selecionado')
+            document.getElementById('mouseEscolhido').textContent = nome
+        }
+
+        // Função para selecionar Teclado
+        function selecionarTeclado(elemento, nome) {
+            document.querySelectorAll('.categoria:nth-child(10) .opcao').forEach(op => {
+                op.classList.remove('selecionado')
+            });
+            elemento.classList.add('selecionado')
+            document.getElementById('tecladoEscolhido').textContent = nome
+        }
+    </script>
 </body>
 
 </html>
