@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>viaCep</title>
+</head>
+<body>
+  <input type="text" id="cep" name="cep" maxlegth="9"
+  onblur="buscarEndereco()">
+  <br>
+  <input type="text" id="logradouro" name="logradouro" readonly>
+  <br>
+  <input type="text" id="bairro" name="bairro" readonly>
+  <br>
+  <input type="text" id="cidade" name="cidade" readonly>
+  <br>
+  <input type="text" id="estado" name="estado" readonly>
+
+  <script src="consultaAPI.js"></script>
+   
+</body>
+</html>
