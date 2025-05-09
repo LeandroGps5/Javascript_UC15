@@ -1,13 +1,12 @@
-
 <!DOCTYPE html> <!-- Define o tipo de documento como HTML5 -->
 <html lang="pt-BR"> <!-- Define o idioma principal da página como português brasileiro -->
- 
+
 <head>
     <meta charset="UTF-8"> <!-- Define o conjunto de caracteres como UTF-8, aceitando acentuação -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Faz o layout se adaptar a dispositivos móveis -->
     <title>Adivinhe o Pokémon</title> <!-- Define o título que aparece na aba do navegador -->
- 
+
     <style>
         /* ==================== ESTILOS GERAIS ==================== */
         body {
@@ -28,14 +27,14 @@
             margin: 0;
             /* Remove margens padrão */
         }
- 
+
         h1 {
             color: #333;
             /* Cor escura para o título */
             margin-bottom: 20px;
             /* Espaço abaixo do título */
         }
- 
+
         /* ==================== ESTILOS DO CONTAINER DO JOGO ==================== */
         #jogo {
             background-color: #fff;
@@ -53,25 +52,25 @@
             width: 100%;
             /* Ocupa toda a largura até o limite */
         }
- 
+
         /* ==================== ESTILO DAS DICAS ==================== */
         #dicas {
             margin-bottom: 20px;
             /* Espaço abaixo das dicas */
         }
- 
+
         #dicas p {
             margin: 5px 0;
             /* Espaço vertical entre parágrafos */
             color: #555;
             /* Cor do texto das dicas */
         }
- 
+
         #dicas p strong {
             color: #333;
             /* Cor mais forte para os títulos das dicas */
         }
- 
+
         /* ==================== ESTILO DA IMAGEM DO POKÉMON ==================== */
         #imagem-pokemon {
             width: 150px;
@@ -87,7 +86,7 @@
             border-radius: 10px;
             /* Bordas arredondadas */
         }
- 
+
         /* ==================== ESTILO DO INPUT E BOTÃO ==================== */
         #entrada-palpite {
             padding: 10px;
@@ -101,7 +100,7 @@
             margin-bottom: 10px;
             /* Espaço abaixo do input */
         }
- 
+
         #botao-palpite {
             padding: 10px 20px;
             /* Espaçamento interno */
@@ -116,12 +115,12 @@
             cursor: pointer;
             /* Cursor de mãozinha */
         }
- 
+
         #botao-palpite:hover {
             background-color: #0056b3;
             /* Azul mais escuro no hover */
         }
- 
+
         /* ==================== ESTILO DO RESULTADO DO PALPITE ==================== */
         #resultado {
             margin-top: 20px;
@@ -129,13 +128,13 @@
             font-weight: bold;
             /* Texto em negrito */
         }
- 
+
         /* Estilos condicionais para acerto e erro */
         #resultado.certo {
             color: green;
             /* Verde para resposta certa */
         }
- 
+
         #resultado.errado {
             color: red;
             /* Vermelho para resposta errada */
@@ -151,16 +150,17 @@
         <div id="dicas"></div>
         <img id="imagem-pokemon" src="" alt="Imagem do Pokémon">
         <input type="text" id="entrada-palpite" placeholder="Nome do Poké">
-        <button id ="botao-palpite">Enviar Palpite</button>
+        <button id="botao-palpite">Enviar Palpite</button>
         <div id="resultado"></div>
     </div>
+
     <script>
         let pokemonAleatorio
 
-        async function biscarPokemonAleatorio(){
+        async function buscarPokemonAleatorio() {
             let id = Math.floor(Math.random() * 1024) + 1
             //Calcula um número aleatório de 0 à 1024
-            let url = `https://pokeapi.co/api/pokemon/${id}`
+            let url = `https://pokeapi.co/api/v2/pokemon/${id}`
 
             let response = await fetch(url)
 
@@ -168,56 +168,59 @@
             return data
         }
 
-        function exibirDicas(pokemon){
-        let dicas = document.getElementById('dicas')
-        let imagemPokemon = document.getElementById('imagem-pokemon')
+        function exibirDicas(pokemon) {
+            let dicas = document.getElementById('dicas')
+            let imagemPokemon = document.getElementById('imagem-pokemon')
 
-        dicas.innerHTML = `
-        <p><strong>Tipo:</strong>${pokemon.types.map(type=>type.type.name)}</p>
-        <p><strong>Altura:</strong>${pokemon.height/10}m</p>
-        <p><strong>Peso:</strong>${pokemon.weight/10}kg</p>
+            dicas.innerHTML = `
+        <p><strong>Tipo:</strong>${pokemon.types.map(type => type.type.name)}</p>
+        <p><strong>Altura:</strong>${pokemon.height / 10}m</p>
+        <p><strong>Peso:</strong>${pokemon.weight / 10}kg</p>
         `
 
-        imagemPokemon.src = pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default
-        } 
+            imagemPokemon.src = pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default
+        }
 
-        function verificarPalpite(palpite, pokemon){
+        function verificarPalpite(palpite, pokemon) {
             let resultado = document.getElementById('resultado')
             let palpiteNormalizado = palpite.trim().toLowerCase()
 
-            if(palpiteNormalizado == nomePokemonNormalizado){
+            let nomePokemonNormalizado = pokemon.name.toLowerCase()
+
+            if (palpiteNormalizado == nomePokemonNormalizado) {
                 resultado.textContent = "Parabéns ! Você Acertou"
                 resultado.className = "certo"
 
                 document.getElementById('imagem-pokemon').style.filter = 'nome'
                 document.getElementById('imagem-pokemon').style.opacity = '1'
 
-                iniciarNovoJogo()
-            }else{
+                setTimeout(iniciarNovoJogo, 3000)
+            } else {
                 resultado.textContent = "Tente Novamente !"
                 resultado.className = "errado"
             }
-            }
+        }
 
-            async function iniciarNovoJogo(){
-                pokemonAleatorio = await buscarPokemonAleatorio()
-                exibirDicas(pokemonAleatorio)
-                document.getElementById('entrada-palpite').value=""
-                document.getElementById('resultado').textContent=""
-                document.getElementById('imagem-pokemon')
-                .style.filter="blur(5px) grayscale(100%) brightness(0) contrast(200%)"
-                document.getElementById('imagem-pokemon').style.opacity = "0.7"
-                
-            }
+        async function iniciarNovoJogo() {
+            pokemonAleatorio = await buscarPokemonAleatorio()
+            exibirDicas(pokemonAleatorio)
+            document.getElementById('entrada-palpite').value = ""
+            document.getElementById('resultado').textContent = ""
+            document.getElementById('imagem-pokemon')
+                .style.filter = "blur(5px) grayscale(100%) brightness(0) contrast(200%)"
+            document.getElementById('imagem-pokemon').style.opacity = "0.7"
 
-            document.getElementById('botao-palpite').addEventListener('click',
-            function(){
+        }
+
+        document.getElementById('botao-palpite').addEventListener('click',
+            function () {
                 let palpite = document.getElementById('entrada-palpite').value
                 verificarPalpite(palpite, pokemonAleatorio)
             }
         )
         window.onload = iniciarNovoJogo
-        
+
     </script>
 </body>
+
 </html>
